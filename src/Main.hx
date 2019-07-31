@@ -1,7 +1,6 @@
 package ;
 
 
-
 import openfl.display.Sprite;
 
 import openfl.events.Event;
@@ -9,10 +8,7 @@ import openfl.events.Event;
 import openfl.Lib;
 
 
-
-class Main extends Sprite
-
-{
+class Main extends Sprite {
 
     var inited:Bool;
 
@@ -23,14 +19,10 @@ class Main extends Sprite
     private var ball:Ball;
 
 
-
     /* ENTRY POINT */
 
 
-
-    function resize(e)
-
-    {
+    function resize(e) {
         trace('stage resized');
         if (!inited) init();
 
@@ -39,15 +31,11 @@ class Main extends Sprite
     }
 
 
-
-    function init()
-
-    {
+    function init() {
 
         if (inited) return;
 
         inited = true;
-
 
 
         platform1 = new Platform();
@@ -59,7 +47,6 @@ class Main extends Sprite
         this.addChild(platform1);
 
 
-
         platform2 = new Platform();
 
         platform2.x = 480;
@@ -67,7 +54,6 @@ class Main extends Sprite
         platform2.y = 200;
 
         this.addChild(platform2);
-
 
 
         ball = new Ball();
@@ -81,14 +67,10 @@ class Main extends Sprite
     }
 
 
-
     /* SETUP */
 
 
-
-    public function new()
-
-    {
+    public function new() {
 
         super();
 
@@ -97,10 +79,7 @@ class Main extends Sprite
     }
 
 
-
-    function added(e)
-
-    {
+    function added(e) {
 
         removeEventListener(Event.ADDED_TO_STAGE, added);
 
@@ -119,10 +98,7 @@ class Main extends Sprite
     }
 
 
-
-    public static function main()
-
-    {
+    public static function main() {
 
         // static entry point
 
