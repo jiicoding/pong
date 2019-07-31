@@ -1,7 +1,6 @@
 package ;
 
 
-
 import openfl.display.Sprite;
 
 import openfl.events.Event;
@@ -68,17 +67,23 @@ class Main extends Sprite {
 
     private var ballSpeed:Int;
 
-
+    private var stageWidth:Float;
+    private var stageHeight:Float;
 
     /* ENTRY POINT */
 
 
-    function resize(e) {
+    function onResize(e) {
 
         if (!inited) init();
 
         // else (resize or orientation change)
-
+        this.stageWidth = stage.stageWidth;
+        this.stageHeight = stage.stageHeight;
+        this.platform2.x = this.stageWidth - 20;
+        this.scoreField.width = this.stageWidth;
+        this.messageField.width = this.stageWidth;
+        this.messageField.y = this.stageHeight - 50;
     }
 
 
@@ -87,7 +92,6 @@ class Main extends Sprite {
         if (inited) return;
 
         inited = true;
-
 
 
         platform1 = new Platform();
@@ -99,7 +103,6 @@ class Main extends Sprite {
         this.addChild(platform1);
 
 
-
         platform2 = new Platform();
 
         platform2.x = 480;
@@ -107,7 +110,6 @@ class Main extends Sprite {
         platform2.y = 200;
 
         this.addChild(platform2);
-
 
 
         ball = new Ball();
@@ -179,7 +181,7 @@ class Main extends Sprite {
         stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
 
         this.addEventListener(Event.ENTER_FRAME, everyFrame);
-
+        this.onResize(null); //set up other variable
     }
 
 
@@ -313,23 +315,23 @@ class Main extends Sprite {
 
             }
 
-            if (ballMovement.x > 0 && ball.x > 470 && ball.y >= platform2.y && ball.y <= platform2.y + 100) {
+            if (ballMovement.x > 0 && ball.x > this.stageWidth - 30 && ball.y >= platform2.y && ball.y <= platform2.y + 100) {
 
                 bounceBall();
 
-                ball.x = 470;
+                ball.x = this.stageWidth - 30;
 
             }
 
             // ball edge bounce
 
-            if (ball.y < 5 || ball.y > 495) ballMovement.y *= -1;
+            if (ball.y < 5 || ball.y > this.stageHeight - 5) ballMovement.y *= -1;
 
             // ball goal
 
             if (ball.x < 5) winGame(AI);
 
-            if (ball.x > 495) winGame(Human);
+            if (ball.x > stageWidth - 5) winGame(Human);
 
         }
 
@@ -373,7 +375,6 @@ class Main extends Sprite {
     }
 
 
-
     /* SETUP */
 
 
@@ -390,7 +391,6 @@ class Main extends Sprite {
 
         removeEventListener(Event.ADDED_TO_STAGE, added);
 
-        stage.addEventListener(Event.RESIZE, resize);
 
         #if ios
 
@@ -399,6 +399,7 @@ class Main extends Sprite {
 		#else
 
         init();
+        stage.addEventListener(Event.RESIZE, onResize);
 
         #end
 
