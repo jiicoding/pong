@@ -16,6 +16,12 @@ class Main extends Sprite
 
     var inited:Bool;
 
+    private var platform1:Platform;
+
+    private var platform2:Platform;
+
+    private var ball:Ball;
+
 
 
     /* ENTRY POINT */
@@ -44,7 +50,33 @@ class Main extends Sprite
 
 
 
-        // code
+        platform1 = new Platform();
+
+        platform1.x = 5;
+
+        platform1.y = 200;
+
+        this.addChild(platform1);
+
+
+
+        platform2 = new Platform();
+
+        platform2.x = 480;
+
+        platform2.y = 200;
+
+        this.addChild(platform2);
+
+
+
+        ball = new Ball();
+
+        ball.x = 250;
+
+        ball.y = 250;
+
+        this.addChild(ball);
 
     }
 
